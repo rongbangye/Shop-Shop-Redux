@@ -14,7 +14,7 @@ Shop Shop is an e-commerce application that allows users to shop for various ite
 
 ## Deployed Application
 
-[Shop Shop Demo]()<br />
+[Shop Shop Demo](https://young-castle-28353.herokuapp.com/)<br />
 ![Image](images/shop-shop.png)<br />
 
 ## User Story
