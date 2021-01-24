@@ -1,5 +1,3 @@
-import { useReducer } from "react";
-
 import {
   UPDATE_PRODUCTS,
   UPDATE_CATEGORIES,
@@ -10,19 +8,26 @@ import {
   UPDATE_CART_QUANTITY,
   CLEAR_CART,
   TOGGLE_CART,
-} from "../utils/actions";
+} from "./actions";
 
-export const reducer = (state, action) => {
+const defaultState = {
+  products: [],
+  cart: [],
+  cartOpen: false,
+  categories: [],
+  currentCategory: "",
+};
+
+const reducer = (state = defaultState, action) => {
   switch (action.type) {
-    // if action type value is the value of 'UPDATE_PRODUCTS', return a new state object with an updated products array
+    //if action type value is the value of 'UPDATE_PRODUCTS', return a new state object with an updated products array
     case UPDATE_PRODUCTS:
       return {
         ...state,
-        // if it's that action type, we return a new object with a copy of the state argument using the spread ... operator
-        // and then set the products key to a value of a new array with the action.products value spread across it.
         products: [...action.products],
       };
 
+    //if action type value is value of 'UPDATE_CATEGORIES', return a new state object with an updated categories array
     case UPDATE_CATEGORIES:
       return {
         ...state,
@@ -63,11 +68,11 @@ export const reducer = (state, action) => {
       return {
         ...state,
         cartOpen: true,
-        // we use the map() method to create a new array instead of updating state.cart directy
         cart: state.cart.map((product) => {
           if (action._id === product._id) {
             product.purchaseQuantity = action.purchaseQuantity;
           }
+
           return product;
         }),
       };
@@ -85,12 +90,10 @@ export const reducer = (state, action) => {
         cartOpen: !state.cartOpen,
       };
 
-    // if it's none of these actions, do not update state at all and keep things the same!
+    //if it's none of these actions, do not update the state at all and keep things the same
     default:
       return state;
   }
 };
 
-export function useProductReducer(initialState) {
-  return useReducer(reducer, initialState);
-}
+export default reducer;
